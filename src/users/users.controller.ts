@@ -1,9 +1,8 @@
 import { Controller, Get, Post, Param, Body, Delete, Patch, NotFoundException, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from 'src/schemas/user.model';
+import { User } from '../schemas/user.model';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Card } from 'src/schemas/card.model';
 
 
 @Controller('users')
@@ -41,18 +40,4 @@ export class UsersController {
   delete(@Param('id') id: string) {
     return this.usersService.deleteUser(id);
   }
-
-  // @Patch(':userId/:cardId')
-  // async likeCard(@Param('userId') userId: string, @Param('cardId') cardId: string): Promise<{ user: User, card: Card }> {
-  //   try {
-  //     const result = await this.usersService.likeCard(userId, cardId);
-  //     return result;
-  //   } catch (error) {
-  //     if (error instanceof NotFoundException) {
-  //       throw new NotFoundException('Usuario o tarjeta no encontrados.');
-  //     } else {
-  //       throw new Error('Error al procesar la solicitud.');
-  //     }
-  //   }
-  // }
 }

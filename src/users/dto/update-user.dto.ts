@@ -1,4 +1,4 @@
-import { Card } from "src/schemas/card.model";
+import { Card } from "../../schemas/card.model";
 
 export class UpdateUserDto {
     username?: string;

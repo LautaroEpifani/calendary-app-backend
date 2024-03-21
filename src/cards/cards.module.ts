@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { CardsService } from './cards.service';
 import { CardsController } from './cards.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Card, CardSchema } from 'src/schemas/card.model';
-import { UsersModule } from 'src/users/users.module';
+import { Card, CardSchema } from '../schemas/card.model';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [

@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsNotEmpty, IsBoolean, IsArray } from 'class-validator';
 
-export class CreateCardDto {
+export class CreateCardDto  {
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -10,8 +10,8 @@ export class CreateCardDto {
   description?: string;
 
   @IsString()
-  @IsNotEmpty()
-  section: string;
+  @IsOptional()
+  section?: string;
 
   @IsString()
   @IsNotEmpty()

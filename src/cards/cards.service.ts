@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { Card } from 'src/schemas/card.model';
+import { Card } from '../schemas/card.model';
 import { UpdateCardDto } from './dto/update-card.dto';
 import { CreateCardDto } from './dto/create-card.dto';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class CardsService {
@@ -18,7 +18,8 @@ export class CardsService {
   ) {}
 
   async getAllCards(): Promise<Card[]> {
-    return this.cardModel.find();
+    const cards = await this.cardModel.find();
+    return cards;
     // .populate('assignedUsers')
   }
 
@@ -29,7 +30,13 @@ export class CardsService {
       throw new BadRequestException('Please enter correct id');
     }
 
-    return await this.cardModel.findById(id);
+    const card = await this.cardModel.findById(id);
+
+    if (!card) {
+      throw new NotFoundException('Card not found');
+    }
+
+    return card;
   }
 
   async createCard(card: CreateCardDto): Promise<Card> {
@@ -74,16 +81,18 @@ export class CardsService {
       throw new NotFoundException(`Card with ID ${id} not found`);
     }
 
-    const deletedCard = await this.cardModel.deleteOne({ _id: id });
+    await this.cardModel.deleteOne({ _id: id });
 
     let message = `Hemos eliminado la tarjeta: ${card.title}.`;
 
     const createdByUserId = card.createdBy.toString();
     const createdByUser = await this.userModel.getUserById(createdByUserId);
     if (createdByUser) {
-      createdByUser.createdCards = createdByUser.createdCards.filter(
-        (cardId) => cardId.toString() !== id,
-      );
+      if (createdByUser.createdCards) {
+        createdByUser.createdCards = createdByUser.createdCards.filter(
+          (cardId) => cardId.toString() !== id,
+        );
+      }
       await createdByUser.save();
       message += `\nLa tarjeta también ha sido eliminada de las propiedades creadas de ${createdByUser.username}.`;
     }
@@ -91,15 +100,17 @@ export class CardsService {
     for (const assignedUserId of card.assignedUsers.map(String)) {
       const assignedUser = await this.userModel.getUserById(assignedUserId);
       if (assignedUser) {
-        assignedUser.assignedCards = assignedUser.assignedCards.filter(
-          (cardId) => cardId.toString() !== id,
-        );
+        if(assignedUser.assignedCards) {
+          assignedUser.assignedCards = assignedUser.assignedCards.filter(
+            (cardId) => cardId.toString() !== id,
+          );
+        }
         await assignedUser.save();
         message += `\nLa tarjeta también ha sido eliminada de las propiedades asignadas a ${assignedUser.username}.`;
       }
     }
 
-    return { message, deletedCard };
+    return { message, card };
   }
 
   async getCardsWithUsername(): Promise<any[]> {
