@@ -77,7 +77,7 @@ describe('CardService', () => {
 
       jest
         .spyOn(cardModel, 'create')
-        .mockImplementationOnce(() => Promise.resolve(mockCard as any));
+        .mockImplementation(() => Promise.resolve(mockCard as any));
 
       const result = await cardService.createCard(newCard as CreateCardDto);
 

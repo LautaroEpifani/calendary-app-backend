@@ -1,5 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '../schemas/user.model';
+import {  Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { AuthPayloadDto } from './dto/auth.dto';
@@ -23,10 +22,14 @@ export class AuthService {
         const token = this.jwtService.sign({ id: user._id, username: user.username });
         return { token: token };
       } else {
-        throw new Error('Contraseña incorrecta');
+        throw new UnauthorizedException('Usuario o contraseña incorrecto');
       }
     } catch (error) {
-      throw new Error(`Error al autenticar al usuario: ${error.message}`);
+      if (error instanceof NotFoundException || error instanceof UnauthorizedException) {
+        throw error; 
+      } else {
+        throw new Error('Error inesperado'); 
+      }
     }
   }
 

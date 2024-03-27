@@ -4,7 +4,7 @@ import { Card } from './card.model';
 
 @Schema()
 export class User extends Document {
-  @Prop({ required: true })
+  @Prop({ unique: true , required: true })
   username: string;
 
   @Prop({ required: true })

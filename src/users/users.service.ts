@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../schemas/user.model';
@@ -26,10 +26,16 @@ export class UsersService {
   }
 
   async createUser(user: any): Promise<User> {
-    const  hashedPassword  = await encodePassword(user.password);
+    const hashedPassword = await encodePassword(user.password);
     user.password = hashedPassword;
-    const createdUser = await this.userModel.create(user);
-    return createdUser;
+    try {
+      const createdUser = await this.userModel.create(user);
+      return createdUser;
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new ConflictException('Duplicate user name');
+      }
+    }
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
