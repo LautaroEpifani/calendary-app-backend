@@ -1,15 +1,9 @@
 pipeline {
     agent any
-    stages {
-        stage('Setup') {
-            steps {
-                nodejs(nodeJSInstallationName: 'Node 21.7.1') {
-                
-                    sh 'npm --version'
-                }
-            }
-        }
-       
+    tools {
+        nodejs 'nodejs'
+    }
+    stages {       
         stage('Build') {
             steps {
                 sh 'npm install' 
