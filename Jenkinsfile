@@ -1,7 +1,7 @@
 pipeline {
     agent { 
        docker {
-           image 'node:latest'
+           image 'docker-nest-mongo-nest-app'
        }
     }
 
