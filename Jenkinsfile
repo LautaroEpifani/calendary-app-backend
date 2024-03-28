@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                console.log("deploy")
+                 echo 'Despliegue completado.'
             }
         }
     }
