@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'apt-get update && apt-get install -y nodejs npm docker mongodb'
+                sh 'sudo apt-get update && sudo apt-get install -y nodejs npm docker mongodb'
             }
         }
         stage('Build') {
