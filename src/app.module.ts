@@ -11,9 +11,7 @@ import { AuthModule } from './auth/auth.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: process.env.NODE_ENV === 'test' 
-          ? `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${`test-db`}`
-          : `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DATABASE}`,
+        uri: `mongodb+srv://${configService.get('MONGO_USERNAME')}:${configService.get('MONGO_PASSWORD')}@${configService.get('MONGO_CLUSTER')}/${configService.get('MONGO_DATABASE')}`,
       }),
       inject: [ConfigService],
     }),

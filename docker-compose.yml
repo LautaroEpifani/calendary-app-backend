@@ -7,6 +7,9 @@ services:
       - "3001:3001"
     depends_on:
       - mongo-db
+    volumes:
+      - nest-data:/app/data 
+
   mongo-db:
     image: mongo:latest
     environment:
@@ -15,3 +18,19 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  jenkins:
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    restart: always
+    volumes:
+      - jenkins-data:/var/jenkins_home
+
+volumes:
+  nest-data:
+  mongo-data:
+  jenkins-data:
