@@ -1,16 +1,17 @@
 pipeline {
     agent any
-
+    tools {
+            node {
+        env.NODEJS_HOME = "${tool 'Node 14.x'}"
+        env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
+        sh 'npm --version'
+    }
+    }
     stages {
-        stage('Setup') {
-            steps {
-                sh 'sudo apt install npm docker mongodb'
-            }
-        }
+       
         stage('Build') {
             steps {
-                sh 'npm install'  
-                sh 'npm run build' 
+                sh 'npm install' 
             }
         }
          stage('Unit Tests') {
