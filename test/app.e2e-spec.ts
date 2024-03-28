@@ -18,16 +18,15 @@ describe('Card & Auth Controller (e2e)', () => {
     await app.init();
   });
 
-  beforeAll(() => {
-    mongoose.connect(
+  beforeAll(async () => {
+    await mongoose.connect(
       `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${`test-db`}`,
-    ),
-      function () {
-        mongoose.connection.db.dropDatabase;
-      };
+    );
   });
 
-  afterAll(() => mongoose.disconnect());
+  afterAll(async () => {
+    await mongoose.disconnect();
+  });
 
   let newCard = {
     title: 'New Card',

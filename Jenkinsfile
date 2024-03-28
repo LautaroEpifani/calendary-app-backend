@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'  // Instalar dependencias
-                sh 'npm run build'  // Compilar la aplicación
+                sh 'npm install'  
+                sh 'npm run build' 
             }
         }
          stage('Unit Tests') {
@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                console.log("hola")
+                console.log("deploy")
             }
         }
     }
