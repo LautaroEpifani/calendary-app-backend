@@ -7,6 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install' 
+                sh "printenv | sort"
             }
         }
          stage('Unit Tests') {
