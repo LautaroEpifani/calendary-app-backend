@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                 echo 'Despliegue completado.'
+                 echo 'Despliegue completado con cambios x 1.'
             }
         }
     }
