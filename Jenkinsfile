@@ -6,29 +6,37 @@ pipeline {
         MONGO_DATABASE = credentials('MONGO_DATABASE')
         MONGO_CLUSTER = credentials('MONGO_CLUSTER')
         JWT_SECRET = credentials('JWT_SECRET')
+        SSH_CREDENTIALS = credentials('e80448cb-54ff-4778-83ff-860950b00e0f')
+        SERVER_ADDR = '3.255.155.197'
     }
     tools {
         nodejs 'nodejs'
     }
-    stages {       
+    stages {
         stage('Build') {
             steps {
-                sh 'npm install' 
+                sh 'npm install'
             }
         }
-         stage('Unit Tests') {
+        stage('Unit Tests') {
             steps {
                 sh 'npm run test'
             }
         }
         stage('End-to-End Tests') {
-            steps { 
+            steps {
                 sh 'npm run test:e2e'
             }
         }
         stage('Deploy') {
             steps {
-                 echo 'Despliegue completado con cambios x 1.'
+                script {
+                    sshagent(credentials: ['SSH_CREDENTIALS']) {
+                        sh """
+                            ssh -o StrictHostKeyChecking=no -i ${SSH_CREDENTIALS} ubuntu@${SERVER_ADDR} "cd /var/www/calendary-app-backend && sudo git stash && sudo git pull origin main && sudo npm install"
+                        """
+                    }
+                }
             }
         }
     }
