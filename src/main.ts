@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log("Probando cambios para el repositorio de ec2 cambios ip agregando plugin");
+  console.log("Probando cambios para el repositorio");
   app.enableCors();
   await app.listen(3001);
 }
