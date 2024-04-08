@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log("Probando cambios para el repositorio adding github deploy keys good format");
+  console.log("Test changes on repo inside EC2 plus docker build");
   app.enableCors();
   await app.listen(3001);
 }

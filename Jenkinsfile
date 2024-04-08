@@ -33,7 +33,7 @@ pipeline {
                 script {
                     sshagent(credentials: ['SSH_CREDENTIALS']) {
                         sh '''
-                            ssh -o StrictHostKeyChecking=no -i "${SSH_CREDENTIALS}" ubuntu@3.255.155.197 "cd /var/www/calendary-app-backend && sudo git stash && sudo git pull origin main && sudo npm install"
+                            ssh -o StrictHostKeyChecking=no -i "${SSH_CREDENTIALS}" ubuntu@3.255.155.197 "cd /var/www/calendary-app-backend && sudo git pull origin main && sudo docker-compose up --build"
                         '''
                     }
                 }
