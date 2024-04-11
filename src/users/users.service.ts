@@ -10,11 +10,11 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async getAllUsers(): Promise<User[]> {
-    return this.userModel.find();
+    return this.userModel.find().select('-password');
   }
 
   async getUserById(id: string): Promise<User | null> {
-    return this.userModel.findById(id);
+    return this.userModel.findById(id).select('-password');
   }
 
   async getUserByUsername(username: string): Promise<User | null> {
