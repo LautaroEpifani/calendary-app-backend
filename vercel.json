@@ -14,11 +14,9 @@
             "GET",
             "POST",
             "PUT",
-            "DELETE"
-        ],
-        "headers": {
-            "Access-Control-Allow-Origin": "*"
-        }
+            "DELETE",
+            "OPTIONS"
+        ]
       }
     ]
   }
