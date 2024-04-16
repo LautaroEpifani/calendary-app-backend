@@ -83,7 +83,7 @@ export class CardsService {
 
     await this.cardModel.deleteOne({ _id: id });
 
-    let message = `Hemos eliminado la tarjeta: ${card.title}.`;
+    let message = `We have deleted the card: ${card.title}.`;
 
     const createdByUserId = card.createdBy.toString();
     const createdByUser = await this.userModel.getUserById(createdByUserId);
@@ -94,7 +94,7 @@ export class CardsService {
         );
       }
       await createdByUser.save();
-      message += `\nLa tarjeta también ha sido eliminada de las propiedades creadas de ${createdByUser.username}.`;
+      message += `\nThe card has also been removed from the created properties of ${createdByUser.username}.`;
     }
 
     for (const assignedUserId of card.assignedUsers.map(String)) {
@@ -106,7 +106,7 @@ export class CardsService {
           );
         }
         await assignedUser.save();
-        message += `\nLa tarjeta también ha sido eliminada de las propiedades asignadas a ${assignedUser.username}.`;
+        message += `\nThe card has also been removed from the assigned properties of ${assignedUser.username}.`;
       }
     }
 

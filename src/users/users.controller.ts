@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, Delete, Patch, NotFoundException, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete, Patch, NotFoundException, UsePipes, ValidationPipe, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../schemas/user.model';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -30,7 +30,7 @@ export class UsersController {
     return this.usersService.createUser(user);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @UsePipes(new ValidationPipe())
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.updateUser(id, updateUserDto);
