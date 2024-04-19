@@ -190,9 +190,9 @@ describe('CardService', () => {
         .mockResolvedValueOnce(mockCreatedByUser)
         .mockResolvedValueOnce(mockAssignedToUser);
 
-      let message = `Hemos eliminado la tarjeta: ${mockCard.title}.`;
-      message += `\nLa tarjeta también ha sido eliminada de las propiedades creadas de ${mockCreatedByUser.username}.`;
-      message += `\nLa tarjeta también ha sido eliminada de las propiedades asignadas a ${mockAssignedToUser.username}.`;
+      let message = `We have deleted the card: ${mockCard.title}.`;
+      message += `\nThe card has also been removed from the created properties of ${mockCreatedByUser.username}.`;
+      message += `\nThe card has also been removed from the assigned properties of ${mockAssignedToUser.username}.`;
 
       const result = await cardService.deleteCard(mockCard._id);
 
