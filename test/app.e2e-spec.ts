@@ -137,11 +137,11 @@ describe('Card & Auth Controller (e2e)', () => {
       expect(response.body._id).toEqual(cardCreated._id);
     });
 
-    it('(PATCH) - Update Card', async () => {
+    it('(PUT) - Update Card', async () => {
       const cardUpdate = { title: 'Updated title' };
 
       await request(app.getHttpServer())
-        .patch(`/cards/${cardCreated?._id}`)
+        .put(`/cards/${cardCreated?._id}`)
         .send({ title: cardUpdate.title })
         .expect(200)
         .then((response) => {
