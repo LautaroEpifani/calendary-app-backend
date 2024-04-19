@@ -153,9 +153,9 @@ describe('Card & Auth Controller (e2e)', () => {
 
     it('(Delete) - Delete Card', async () => {
 
-      let message = `Hemos eliminado la tarjeta: ${cardCreated?.title}.`;
-      message += `\nLa tarjeta también ha sido eliminada de las propiedades creadas de ${mockCreatedByUser.username}.`;
-      message += `\nLa tarjeta también ha sido eliminada de las propiedades asignadas a ${mockAssignedToUser.username}.`;
+      let message = `We have deleted the card: ${cardCreated?.title}.`;
+      message += `\nThe card has also been removed from the created properties of ${mockCreatedByUser.username}.`;
+      message += `\nThe card has also been removed from the assigned properties of ${mockAssignedToUser.username}.`;
 
       const response = await request(app.getHttpServer())
         .delete(`/cards/${cardCreated?._id}`)
