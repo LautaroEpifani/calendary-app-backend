@@ -7,7 +7,6 @@ pipeline {
         MONGO_CLUSTER = credentials('MONGO_CLUSTER')
         JWT_SECRET = credentials('JWT_SECRET')
         SSH_CREDENTIALS = credentials('SSH_CREDENTIALS')
-        SERVER_ADDR = '34.254.222.167'
     }
     tools {
         nodejs 'nodejs'
@@ -33,7 +32,7 @@ pipeline {
                 script {
                     sshagent(credentials: ['SSH_CREDENTIALS']) {
                         sh '''
-                            ssh -o StrictHostKeyChecking=no -i "${SSH_CREDENTIALS}" ubuntu@3.255.155.197 "cd /var/www/calendary-app-backend && sudo git pull origin main && sudo docker-compose up --build -d"
+                            ssh -o StrictHostKeyChecking=no -i "${SSH_CREDENTIALS}" ubuntu@34.254.222.167 "cd /var/www/calendary-app-backend && sudo git pull origin main && sudo docker-compose up --build -d"
                         '''
                     }
                 }
