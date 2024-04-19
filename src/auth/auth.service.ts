@@ -12,17 +12,17 @@ export class AuthService {
     try {
       const user = await this.userService.getUserByUsername(username);
       if (!user) {
-        throw new NotFoundException('Usuario no encontrado');
+        throw new NotFoundException('User not found');
       }
       const isPasswordValid = await this.verifyPassword(
         password,
-        user.password,
+        user.password, 
       );
       if (isPasswordValid) {
         const token = this.jwtService.sign({ id: user._id, username: user.username });
         return { token: token };
       } else {
-        throw new UnauthorizedException('Usuario o contraseña incorrecto');
+        throw new UnauthorizedException('Incorrect User');
       }
     } catch (error) {
       if (error instanceof NotFoundException || error instanceof UnauthorizedException) {
