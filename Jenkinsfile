@@ -7,7 +7,7 @@ pipeline {
         MONGO_CLUSTER = credentials('MONGO_CLUSTER')
         JWT_SECRET = credentials('JWT_SECRET')
         SSH_CREDENTIALS = credentials('SSH_CREDENTIALS')
-        SERVER_ADDR = '3.255.155.197'
+        SERVER_ADDR = '34.254.222.167'
     }
     tools {
         nodejs 'nodejs'
